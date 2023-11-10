@@ -39,8 +39,12 @@ public class ChessMatch {
         return capturedPiece;
     }
     public void validateSourcePosition(Position position){
-        if (!board.positionExists(position)){
+        if (!board.thereIsaAPiece(position)){
             throw new ChessException("Não há nenhuma peça na posição de origem");
+        }
+        if (!board.piece(position).isThereAnyPossibleMove()){
+            throw new ChessException("nâo há movimentos possiveis para a peça escolhida");
+
         }
     }
 
