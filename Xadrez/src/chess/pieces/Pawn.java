@@ -7,8 +7,8 @@ import chess.ChessPiece;
 import chess.Color;
 
 public class Pawn extends ChessPiece {
-    private ChessMatch chessMatch;
 
+    private ChessMatch chessMatch;
     public Pawn(Board board, Color color, ChessMatch chessMatch) {
         super(board, color);
         this.chessMatch = chessMatch;
@@ -29,7 +29,7 @@ public class Pawn extends ChessPiece {
             p.setValues(position.getRow() - 2, position.getColumn());
             Position p2 = new Position(position.getRow() - 1, position.getColumn());
             if (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p2) && getBoard().positionExists(p2)
-                    && !getBoard().thereIsaAPiece(p) && getMoveCount() == 0) {
+                    && !getBoard().thereIsaAPiece(p2) && getMoveCount() == 0) {
                 mat[p.getRow()][p.getColumn()] = true;
             }
             p.setValues(position.getRow() - 1, position.getColumn() - 1);
@@ -63,7 +63,7 @@ public class Pawn extends ChessPiece {
 
             p.setValues(position.getRow() + 2, position.getColumn());
             Position p2 = new Position(position.getRow() + 1, position.getColumn());
-            if (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p2) && getBoard().positionExists(p2)
+            if (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p) && getBoard().positionExists(p2)
                     && !getBoard().thereIsaAPiece(p) && getMoveCount() == 0) {
                 mat[p.getRow()][p.getColumn()] = true;
             }
