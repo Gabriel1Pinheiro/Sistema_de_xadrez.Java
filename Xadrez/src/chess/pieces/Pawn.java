@@ -14,6 +14,7 @@ public class Pawn extends ChessPiece {
         this.chessMatch = chessMatch;
     }
 
+    // Matriz de booleanos com os movimentos possíveis.
     @Override
     public boolean[][] possibleMoves() {
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
@@ -21,6 +22,7 @@ public class Pawn extends ChessPiece {
         Position p = new Position(0, 0);
 
         if (getColor() == Color.WHITE) {
+            // Movimentos normais
             p.setValues(position.getRow() - 1, position.getColumn());
             if (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)) {
                 mat[p.getRow()][p.getColumn()] = true;
@@ -31,16 +33,19 @@ public class Pawn extends ChessPiece {
             if (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p) && getBoard().positionExists(p2) && !getBoard().thereIsaAPiece(p2) && getMoveCount() == 0) {
                 mat[p.getRow()][p.getColumn()] = true;
             }
+
+            // Capturas diagonais
             p.setValues(position.getRow() - 1, position.getColumn() - 1);
             if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
                 mat[p.getRow()][p.getColumn()] = true;
             }
+
             p.setValues(position.getRow() - 1, position.getColumn() + 1);
             if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
                 mat[p.getRow()][p.getColumn()] = true;
             }
 
-            // #specialMove en passant white;
+            // Movimento especial en passant para branco
             if (position.getRow() == 3) {
                 Position left = new Position(position.getRow(), position.getColumn() - 1);
                 if (getBoard().positionExists(left) && isThereOpponentPiece(left) && getBoard().piece(left) == chessMatch.getEnPassantVulnerable()) {
@@ -52,9 +57,8 @@ public class Pawn extends ChessPiece {
                 }
             }
 
-        }
-
-        else {
+        } else {
+            // Movimentos normais
             p.setValues(position.getRow() + 1, position.getColumn());
             if (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)) {
                 mat[p.getRow()][p.getColumn()] = true;
@@ -65,16 +69,19 @@ public class Pawn extends ChessPiece {
             if (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p) && getBoard().positionExists(p2) && !getBoard().thereIsaAPiece(p2) && getMoveCount() == 0) {
                 mat[p.getRow()][p.getColumn()] = true;
             }
+
+            // Capturas diagonais
             p.setValues(position.getRow() + 1, position.getColumn() - 1);
             if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
                 mat[p.getRow()][p.getColumn()] = true;
             }
+
             p.setValues(position.getRow() + 1, position.getColumn() + 1);
             if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
                 mat[p.getRow()][p.getColumn()] = true;
             }
 
-            // #specialMove en passant black;
+            // Movimento especial en passant para preto
             if (position.getRow() == 4) {
                 Position left = new Position(position.getRow(), position.getColumn() - 1);
                 if (getBoard().positionExists(left) && isThereOpponentPiece(left) && getBoard().piece(left) == chessMatch.getEnPassantVulnerable()) {
@@ -85,11 +92,11 @@ public class Pawn extends ChessPiece {
                     mat[right.getRow() + 1][right.getColumn()] = true;
                 }
             }
-
         }
         return mat;
     }
 
+    // Sobrescrita do método toString para representar a peça como "P" (Pawn = Peão )
     public String toString(){
         return "P";
     }

@@ -18,6 +18,7 @@ public class ChessMatch {
     private ChessPiece enPassantVulnerable;
     private ChessPiece promoted;
 
+    // Listas para armazenar peças no tabuleiro e peças capturadas
     List<Piece> piecesOnTheBoard = new ArrayList<>();
     List<Piece> capturedPieces = new ArrayList<>();
 
@@ -51,6 +52,7 @@ public class ChessMatch {
         return promoted;
     }
 
+    // Método para obter a matriz de peças no tabuleiro
     public ChessPiece[][] getPieces() {
         ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
         for (int i = 0; i < board.getRows(); i++) {
@@ -61,12 +63,14 @@ public class ChessMatch {
         return mat;
     }
 
+    // Método para obter os movimentos possíveis de uma peça em uma determinada posição
     public boolean[][] possibleMoves(ChessPosition sourcePosition) {
         Position position = sourcePosition.toPosition();
         validateSourcePosition(position);
         return board.piece(position).possibleMoves();
     }
 
+    // Método para realizar um movimento de xadrez
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
@@ -107,6 +111,8 @@ public class ChessMatch {
 
         return (ChessPiece) capturedPiece;
     }
+
+    // Método para substituir uma peça promovida
     public ChessPiece replacePromotedPiece(String type) {
         if (promoted == null) {
             throw new IllegalStateException("Não há nenhuma peça a ser promovida");
@@ -126,6 +132,7 @@ public class ChessMatch {
         return newPiece;
     }
 
+    // Método privado para criar uma nova peça com base no tipo e cor
     private ChessPiece newPiece(String type, Color color) {
         if (type.equals("B")) return new Bishop(board, color);
         if (type.equals("N")) return new Knight(board, color);
@@ -179,6 +186,7 @@ public class ChessMatch {
         return capturedPiece;
     }
 
+    // Método privado para desfazer um movimento no tabuleiro
     private void undoMove(Position source, Position target, Piece capturedPiece) {
         ChessPiece p = (ChessPiece) board.removePiece(target);
         p.decreaseMoveCount();
@@ -223,32 +231,40 @@ public class ChessMatch {
         }
     }
 
+    // Sequencia de validações
     public void validateSourcePosition(Position position){
+        // Valida se há uma peça na posição de origem
         if (!board.thereIsaAPiece(position)){
             throw new ChessException("Não há nenhuma peça na posição de origem");
         }
+        // Valida se a peça escolhida pertence ao jogador atual
         if (currentPlayer != ((ChessPiece)board.piece(position)).getColor()){
             throw new ChessException("A peça escolhida não é sua");
         }
+        // Valida se a peça escolhida possui movimentos possíveis
         if (!board.piece(position).isThereAnyPossibleMove()){
             throw new ChessException("nâo há movimentos possiveis para a peça escolhida");
         }
     }
     private void validateTargetPosition(Position source, Position target){
+        // Valida se a peça escolhida pode se mover para a posição alvo
         if (!board.piece(source).possibleMove(target)){
             throw new ChessException("A peça escolhida não pode se mover para a posição alvo ");
         }
     }
 
+    // Avança para o próximo turno e muda o jogador atual
     private void nextTurn(){
         turn++;
         currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
 
+    // Retorna a cor oposta à cor fornecida
     private Color opponent(Color color){
         return (color == Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
 
+    // Retorna a instância do rei da cor fornecida no tabuleiro
     private ChessPiece king(Color color){
         List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
         for (Piece p : list){
@@ -259,6 +275,7 @@ public class ChessMatch {
         throw new IllegalStateException("Não há rei " + color + " no tabuleiro");
     }
 
+    // Verifica se o jogador da cor fornecida está em xeque
     private boolean testChek(Color color){
         Position kingPosition = king(color).getChessPosition().toPosition();
         List<Piece> opponentPieces = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == opponent(color)).collect(Collectors.toList());
@@ -271,6 +288,7 @@ public class ChessMatch {
         return false;
     }
 
+    // Verifica se o jogador da cor fornecida está em xeque-mate
     private boolean testChekMate(Color color){
         if (!testChek(color)){
             return false;
@@ -296,10 +314,16 @@ public class ChessMatch {
         return true;
     }
 
+    // Coloca uma nova peça no tabuleiro com as coordenadas fornecidas
     private void placeNewPiece(char column, int row, ChessPiece piece){
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
         piecesOnTheBoard.add(piece);
     }
+
+    // Posicionamento inicial das peças no tabuleiro de xadrez
+    // Implementa a disposição padrão das peças no início do jogo
+    // (rooks, knights, bishops, queens, kings, pawns)
+    // para ambos os jogadores (branco e preto).
     private void initialSetup(){
         placeNewPiece('a', 1, new Rook(board, Color.WHITE));
         placeNewPiece('b', 1, new Knight(board, Color.WHITE));

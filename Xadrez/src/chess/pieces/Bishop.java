@@ -11,18 +11,16 @@ public class Bishop extends ChessPiece {
         super(board, color);
     }
 
-    @Override
-    public String toString(){
-        return "B";
-    }
-
+    // Sobrescrita do método possibleMoves para definir os movimentos possíveis do Bispo
     @Override
     public boolean[][] possibleMoves() {
+        // Matriz booleana para representar os movimentos possíveis
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
 
+        // Instância da posição
         Position p = new Position(0,0);
 
-        // Nw
+        // Movimento para o Noroeste (Nw)
         p.setValues(position.getRow() - 1, position.getColumn() - 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -32,7 +30,7 @@ public class Bishop extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // Ne
+        // Movimento para o Nordeste (Ne)
         p.setValues(position.getRow() - 1, position.getColumn() + 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -42,7 +40,7 @@ public class Bishop extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // Se
+        // Movimento para o Sudeste (Se)
         p.setValues(position.getRow() + 1, position.getColumn() + 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -52,7 +50,7 @@ public class Bishop extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // Sw
+        // Movimento para o Sudoeste (Sw)
         p.setValues(position.getRow() + 1, position.getColumn() - 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -62,6 +60,12 @@ public class Bishop extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
         return mat;
+    }
+
+    // Sobrescrita do método toString para representar a peça como "B" (Bishop = Bispo)
+    @Override
+    public String toString(){
+        return "B";
     }
 }
 

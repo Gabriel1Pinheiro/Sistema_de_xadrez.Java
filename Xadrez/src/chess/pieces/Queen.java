@@ -11,18 +11,14 @@ public class Queen extends ChessPiece {
         super(board, color);
     }
 
-    @Override
-    public String toString(){
-        return "Q";
-    }
-
+    // Matriz de booleanos com os movimentos possíveis.
     @Override
     public boolean[][] possibleMoves() {
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
 
         Position p = new Position(0,0);
 
-        // above
+        // Movimentos para cima (above)
         p.setValues(position.getRow() - 1, position.getColumn());
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -32,7 +28,7 @@ public class Queen extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // left
+        // // Movimentos para a esquerda (left)
         p.setValues(position.getRow(), position.getColumn() - 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -42,7 +38,7 @@ public class Queen extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // right
+        // Movimentos para a direita
         p.setValues(position.getRow(), position.getColumn() + 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -52,7 +48,7 @@ public class Queen extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // below
+        // // Movimentos para baixo (below)
         p.setValues(position.getRow() + 1, position.getColumn());
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -63,7 +59,7 @@ public class Queen extends ChessPiece {
         }
 
 
-        // Nw
+        // Movimentos na diagonal superior esquerda (Noroeste)
         p.setValues(position.getRow() - 1, position.getColumn() - 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -73,7 +69,7 @@ public class Queen extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // Ne
+        // Movimentos na diagonal superior direita (Nordeste)
         p.setValues(position.getRow() - 1, position.getColumn() + 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -83,7 +79,7 @@ public class Queen extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // Se
+        // Movimentos na diagonal inferior direita (Sudeste)
         p.setValues(position.getRow() + 1, position.getColumn() + 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -93,7 +89,7 @@ public class Queen extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // Sw
+        // Movimentos na diagonal inferior esquerda (Sudoeste)
         p.setValues(position.getRow() + 1, position.getColumn() - 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsaAPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -105,4 +101,11 @@ public class Queen extends ChessPiece {
 
         return mat;
     }
+
+    // Sobrescrita do método toString para representar a peça como "Q" (Queen = Rainha )
+    @Override
+    public String toString(){
+        return "Q";
+    }
+
 }
