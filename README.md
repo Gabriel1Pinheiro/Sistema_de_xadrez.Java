@@ -54,3 +54,7 @@ Caso prefira, você também pode ver o sistema em execução seguindo os passos 
 3. [Passo 3]
 
 Lembre-se de consultar o vídeo para uma demonstração visual completa.
+
+## Licença
+
+Este projeto é licenciado sob a [Licença MIT](LICENSE).
