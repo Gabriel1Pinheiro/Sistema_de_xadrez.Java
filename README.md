@@ -1,5 +1,5 @@
 
-![Banner](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Banner](https://github.com/Gabriel1Pinheiro/Sistema_de_xadrez.Java/blob/master/JAVA.pngg)
 
 
 Esse sistema de Xadrez foi desenvolvido junto do curso completo de Java na Udemy para aprimorar todos os meus conhecimentos em Java até a criação deste sistema de Xadrez, desenhado em duas camadas. Além disso, a primeira camada implementada (Board layer) é responsável pela lógica, onde uma peça tem um tabuleiro, e um tabuleiro possui várias peças. Na segunda camada (Chess layer), que é a camada de Xadrez, estão concentradas as regras de passagem de turno entre as peças brancas e pretas, a lógica de movimentação das peças, a verificação de check, checkmate e jogadas especiais.
@@ -43,6 +43,7 @@ Esse sistema de Xadrez foi desenvolvido junto do curso completo de Java na Udemy
 ## Uso
 
 Assista ao vídeo demonstrativo para uma visão rápida do sistema de xadrez em ação:
+(Indisponível)
 
 [![Vídeo de Demonstração](https://example.com/link-para-miniatura-do-video.png)](https://example.com/link-para-o-video)
 
